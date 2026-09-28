@@ -3,22 +3,26 @@ from dataclasses import dataclass
 
 
 class ObservableType(str, Enum):
-    IPV4="ipv4"
+    IPV4 = "ipv4"
+    IPV6 = "ipv6"
     DOMAIN = "domain"
     URL = "url"
     SHA256 = "sha256"
+    SHA1 = "sha1"
     MD5 = "md5"
+    EMAIL = "email"
     USERNAME = "username"
     FILE_PATH = "file_path"
     HOSTNAME = "hostname"
 
     @property
     def is_hash(self) -> bool:
-        return self in {ObservableType.SHA256, ObservableType.MD5}
+        return self in {ObservableType.SHA256, ObservableType.SHA1, ObservableType.MD5}
 
     @property
     def is_network(self) -> bool:
-        return self in {ObservableType.IPV4, ObservableType.DOMAIN, ObservableType.URL}
+        return self in {ObservableType.IPV4, ObservableType.IPV6,
+                        ObservableType.DOMAIN, ObservableType.URL}
 
 @dataclass(frozen=True)
 class Observable:
