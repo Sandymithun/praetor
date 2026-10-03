@@ -225,18 +225,3 @@ victim, and an `Observable` type the schema never declared.
   flag. They should queue for a named human with a timeout.
 - **Shared cache.** The TTL cache is per-process. Redis behind the same
   interface would let several workers share one intelligence budget.
-
----
-
-## Things I learned building this
-
-- Where a rate limit belongs: enforced locally, before the request, not
-  discovered from 429 responses after the budget is gone.
-- Why `frozen=True` on a dataclass makes it hashable, and why an indicator you
-  put in a set needs to be.
-- That `isinstance(x, int)` is the wrong check for JSON input, because JSON has
-  no integer type and `3` arrives as `3.0`.
-- That the hard part of extracting indicators is not matching them. It is
-  rejecting `kernel32.dll`, which satisfies every domain regex ever written.
-- That the most dangerous code in a security tool is the code that acts, and
-  the most valuable code is the code that refuses to.
